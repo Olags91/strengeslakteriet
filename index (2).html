@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Strengeslakteriet – Musikk, lyd og undervisning</title>
+  <meta name="description" content="Musikalske tjenester, undervisning, studio, arrangering, lydteknikk og utleie av lydutstyr.">
+  <style>
+    :root {
+      --bg: #f6f3ee;
+      --surface: #ffffff;
+      --ink: #1f2a30;
+      --muted: #5d6a70;
+      --brand: #1f4d4a;
+      --brand-dark: #153634;
+      --accent: #d98c3a;
+      --line: #e2dcd2;
+      --radius: 14px;
+      --shadow: 0 2px 10px rgba(31, 42, 48, 0.08);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+    a { color: var(--brand); }
+    h1, h2, h3 { line-height: 1.2; margin: 0 0 0.5em; }
+    h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); }
+    .wrap { width: min(1120px, 100% - 2.5rem); margin-inline: auto; }
+    section { padding: 4.5rem 0; }
+
+    /* Meny */
+    header.site {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(246, 243, 238, 0.94);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .logo { font-weight: 700; font-size: 1.2rem; color: var(--brand); text-decoration: none; letter-spacing: 0.02em; }
+    .logo span { color: var(--accent); }
+    nav ul { display: flex; gap: 1.6rem; list-style: none; margin: 0; padding: 0; }
+    nav a { text-decoration: none; color: var(--ink); font-weight: 500; padding: 0.3rem 0; border-bottom: 2px solid transparent; }
+    nav a:hover, nav a:focus-visible { border-bottom-color: var(--accent); }
+    .menu-toggle { display: none; background: none; border: 1px solid var(--line); border-radius: 8px; padding: 0.4rem 0.7rem; font-size: 1rem; cursor: pointer; color: var(--ink); }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, var(--brand-dark), var(--brand));
+      color: #fff;
+      padding: 6rem 0 5.5rem;
+    }
+    .kicker { text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.85rem; font-weight: 600; color: var(--accent) !important; margin: 0 0 1rem; }
+    .hero h1 { font-size: clamp(2.2rem, 5.5vw, 3.8rem); max-width: 16ch; }
+    .hero p { font-size: 1.15rem; max-width: 52ch; color: #e3ece9; }
+    .btn {
+      display: inline-block; padding: 0.8rem 1.5rem; border-radius: 999px;
+      background: var(--accent); color: #1f1405; font-weight: 600; text-decoration: none;
+      border: 2px solid var(--accent); transition: transform 0.15s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn.ghost { background: transparent; color: #fff; border-color: rgba(255,255,255,0.5); margin-left: 0.6rem; }
+
+    /* Om meg */
+    .about { display: grid; grid-template-columns: 1fr 1.4fr; gap: 3rem; align-items: center; }
+    .portrait {
+      aspect-ratio: 4 / 5; border-radius: var(--radius);
+      background: repeating-linear-gradient(45deg, #e8e1d4, #e8e1d4 12px, #efe9de 12px, #efe9de 24px);
+      display: grid; place-items: center; color: var(--muted); font-size: 0.95rem; text-align: center; padding: 1rem;
+    }
+
+    /* Tjenester */
+    #tjenester { background: #fff; }
+    .section-intro { color: var(--muted); max-width: 60ch; margin-bottom: 2.2rem; }
+    .grid {
+      display: grid; gap: 1.2rem;
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .card {
+      background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 1.4rem 1.3rem 1.5rem; box-shadow: var(--shadow);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      display: flex; flex-direction: column;
+    }
+    .card:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 8px 22px rgba(31,42,48,0.12); }
+    .card .num { font-size: 0.85rem; font-weight: 700; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 0.6rem; }
+    .card h3 { font-size: 1.12rem; color: var(--brand); }
+    .card ul { margin: 0.4rem 0 0; padding-left: 1.1rem; color: var(--muted); font-size: 0.96rem; }
+    .card li { margin-bottom: 0.25rem; }
+    .card.tba { background: transparent; border-style: dashed; box-shadow: none; opacity: 0.8; }
+    .card.tba:hover { transform: none; border-color: var(--line); box-shadow: none; }
+    .card.tba p { color: var(--muted); margin: 0; font-size: 0.96rem; }
+
+    /* Priser */
+    .prices { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1.2rem; }
+    .price {
+      background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.5rem;
+    }
+    .price h3 { color: var(--brand); font-size: 1.1rem; }
+    .price .amount { font-size: 1.5rem; font-weight: 700; margin: 0.3rem 0; }
+    .price p { color: var(--muted); margin: 0; font-size: 0.95rem; }
+    .note { margin-top: 1.5rem; color: var(--muted); font-size: 0.95rem; }
+
+    /* Verdigrunnlag */
+    #verdier { background: #fff; }
+    .values { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+    .value { border-left: 4px solid var(--accent); padding-left: 1rem; }
+    .value h3 { font-size: 1.1rem; color: var(--brand); margin-bottom: 0.3em; }
+    .value p { margin: 0; color: var(--muted); }
+
+    /* Kontakt */
+    .contact { display: grid; grid-template-columns: 1fr 1.2fr; gap: 3rem; }
+    .contact dl { margin: 1.2rem 0 0; }
+    .contact dt { font-weight: 600; margin-top: 0.9rem; }
+    .contact dd { margin: 0; color: var(--muted); }
+    form { display: grid; gap: 0.9rem; }
+    label { font-weight: 500; font-size: 0.95rem; display: grid; gap: 0.3rem; }
+    input, select, textarea {
+      font: inherit; padding: 0.7rem 0.8rem; border: 1px solid var(--line); border-radius: 10px; background: #fff; color: var(--ink);
+    }
+    input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+    textarea { min-height: 130px; resize: vertical; }
+    form button { justify-self: start; cursor: pointer; font: inherit; font-weight: 600; }
+
+    footer { background: var(--brand-dark); color: #cfdcd8; padding: 2rem 0; font-size: 0.92rem; }
+    footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; }
+
+    /* Responsivt */
+    @media (max-width: 960px) {
+      .grid { grid-template-columns: repeat(2, 1fr); }
+      .about, .contact { grid-template-columns: 1fr; }
+      .portrait { max-width: 320px; }
+    }
+    @media (max-width: 720px) {
+      .menu-toggle { display: block; }
+      nav ul {
+        display: none; position: absolute; top: 64px; left: 0; right: 0;
+        flex-direction: column; gap: 0; background: var(--bg);
+        border-bottom: 1px solid var(--line); padding: 0.5rem 1.25rem 1rem;
+      }
+      nav ul.open { display: flex; }
+      nav li a { display: block; padding: 0.7rem 0; border-bottom: 1px solid var(--line); }
+      section { padding: 3.2rem 0; }
+      .btn.ghost { margin-left: 0; margin-top: 0.6rem; }
+    }
+    @media (max-width: 520px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site">
+    <div class="wrap nav">
+      <a href="#top" class="logo">Strengeslakteriet<span>.</span></a>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="menu" aria-label="Åpne meny">Meny</button>
+      <nav aria-label="Hovedmeny">
+        <ul id="menu">
+          <li><a href="#om-meg">Om meg</a></li>
+          <li><a href="#tjenester">Tjenester</a></li>
+          <li><a href="#priser">Priser</a></li>
+          <li><a href="#verdier">Verdigrunnlag</a></li>
+          <li><a href="#kontakt">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <div class="hero">
+      <div class="wrap">
+        <p class="kicker">Strengeslakteriet &middot; Ola [Etternavn]</p>
+        <h1>Musikk, lyd og læring – samlet på ett sted</h1>
+        <p>Fra levende musikk og undervisning til studio, arrangering, lydteknikk og utleie av lydutstyr.</p>
+        <p>
+          <a class="btn" href="#tjenester">Se tjenester</a>
+          <a class="btn ghost" href="#kontakt">Ta kontakt</a>
+        </p>
+      </div>
+    </div>
+
+    <section id="om-meg">
+      <div class="wrap about">
+        <div class="portrait" role="img" aria-label="Plassholder for portrettbilde">Legg inn portrettbilde her<br>(bilde/ola.jpg)</div>
+        <div>
+          <h2>Om meg</h2>
+          <p>Jeg er Ola [Etternavn], musiker og trubadur, og mannen bak Strengeslakteriet. [Skriv noen setninger om deg selv, hvor du holder til og hva du brenner for, og gjerne litt om hvordan navnet Strengeslakteriet oppsto.]</p>
+          <p>[Her kan du fortelle kort om utdanning, erfaring og hva som gjør at folk bør velge deg.]</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="tjenester">
+      <div class="wrap">
+        <h2>Tjenester</h2>
+        <p class="section-intro">Dette kan jeg hjelpe deg med. Ta kontakt hvis du er usikker på hva som passer for deg.</p>
+
+        <div class="grid">
+          <article class="card">
+            <div class="num">01</div>
+            <h3>Musikalsk utøvende tjenester</h3>
+            <ul>
+              <li>Trubadur / visekonsert</li>
+              <li>Konserter</li>
+              <li>Bryllup og bursdager</li>
+              <li>Private og bedriftsarrangementer</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="num">02</div>
+            <h3>Undervisning og tilrettelagt undervisning</h3>
+            <ul>
+              <li>Gitar</li>
+              <li>Musikkteori</li>
+              <li>Tilrettelagt undervisning</li>
+              <li>Individuelt og i gruppe</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="num">03</div>
+            <h3>Studio</h3>
+            <ul>
+              <li>Opptak</li>
+              <li>Miksing</li>
+              <li>Mastering</li>
+              <li>Demo- og låtproduksjon</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="num">04</div>
+            <h3>Arrangering</h3>
+            <ul>
+              <li>Solo og duo</li>
+              <li>Band</li>
+              <li>Kor og ensemble</li>
+              <li>Notesetting</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="num">05</div>
+            <h3>Lydteknikk</h3>
+            <ul>
+              <li>Live-lyd</li>
+              <li>Konsert og event</li>
+              <li>Møter og taler</li>
+              <li>Faste installasjoner</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="num">06</div>
+            <h3>Utleie av lydutstyr</h3>
+            <ul>
+              <li>PA-pakker</li>
+              <li>Mikrofoner og mixere</li>
+              <li>Levering og oppsett</li>
+              <li>Utleie med eller uten tekniker</li>
+            </ul>
+          </article>
+
+          <article class="card tba">
+            <div class="num">07</div>
+            <h3>Kommer snart</h3>
+            <p>Flere tjenester er på vei.</p>
+          </article>
+
+          <article class="card tba">
+            <div class="num">08</div>
+            <h3>Kommer snart</h3>
+            <p>Flere tjenester er på vei.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="priser">
+      <div class="wrap">
+        <h2>Priser</h2>
+        <p class="section-intro">Veiledende priser. Alle beløp er plassholdere som du fyller inn selv.</p>
+        <div class="prices">
+          <div class="price">
+            <h3>Musikalsk utøvelse</h3>
+            <div class="amount">fra [000] kr</div>
+            <p>Avhengig av varighet, sted og type arrangement.</p>
+          </div>
+          <div class="price">
+            <h3>Undervisning</h3>
+            <div class="amount">[000] kr / time</div>
+            <p>Rabatt ved klippekort eller grupper.</p>
+          </div>
+          <div class="price">
+            <h3>Studio og arrangering</h3>
+            <div class="amount">[000] kr / time</div>
+            <p>Pris per prosjekt kan avtales.</p>
+          </div>
+          <div class="price">
+            <h3>Lydteknikk og utleie</h3>
+            <div class="amount">fra [000] kr</div>
+            <p>Pakkepriser og døgnpriser. Levering kommer i tillegg.</p>
+          </div>
+        </div>
+        <p class="note">Alle priser oppgis [med/uten] mva. Ta kontakt for et tilbud tilpasset deg.</p>
+      </div>
+    </section>
+
+    <section id="verdier">
+      <div class="wrap">
+        <h2>Verdigrunnlag</h2>
+        <p class="section-intro">Dette er det jeg bygger arbeidet mitt på.</p>
+        <div class="values">
+          <div class="value">
+            <h3>[Verdi 1]</h3>
+            <p>[Kort forklaring av hva verdien betyr i praksis.]</p>
+          </div>
+          <div class="value">
+            <h3>[Verdi 2]</h3>
+            <p>[Kort forklaring av hva verdien betyr i praksis.]</p>
+          </div>
+          <div class="value">
+            <h3>[Verdi 3]</h3>
+            <p>[Kort forklaring av hva verdien betyr i praksis.]</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="kontakt">
+      <div class="wrap contact">
+        <div>
+          <h2>Kontakt</h2>
+          <p>Send en melding, så svarer jeg så fort jeg kan.</p>
+          <dl>
+            <dt>E-post</dt>
+            <dd><a href="mailto:post@strengeslakteriet.no">post@strengeslakteriet.no</a></dd>
+            <dt>Telefon</dt>
+            <dd>[000 00 000]</dd>
+            <dt>Område</dt>
+            <dd>[By / region du dekker]</dd>
+          </dl>
+        </div>
+
+        <!-- Bytt ut action med din egen Formspree- eller Web3Forms-adresse.
+             Alternativt: fjern skjemaet og behold bare e-postlenken. -->
+        <form action="https://formspree.io/f/DIN_ID" method="POST">
+          <label>Navn
+            <input type="text" name="navn" required autocomplete="name">
+          </label>
+          <label>E-post
+            <input type="email" name="epost" required autocomplete="email">
+          </label>
+          <label>Hva gjelder det?
+            <select name="tjeneste">
+              <option>Musikalsk utøvelse</option>
+              <option>Undervisning</option>
+              <option>Studio</option>
+              <option>Arrangering</option>
+              <option>Lydteknikk</option>
+              <option>Utleie av lydutstyr</option>
+              <option>Annet</option>
+            </select>
+          </label>
+          <label>Melding
+            <textarea name="melding" required></textarea>
+          </label>
+          <button class="btn" type="submit">Send melding</button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© <span id="year"></span> Strengeslakteriet &middot; Ola [Etternavn]</span>
+      <span>[Organisasjonsnummer, hvis aktuelt]</span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    var toggle = document.querySelector('.menu-toggle');
+    var menu = document.getElementById('menu');
+    toggle.addEventListener('click', function () {
+      var open = menu.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open);
+    });
+    menu.addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') {
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  </script>
+</body>
+</html>
